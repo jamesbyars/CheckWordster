@@ -4,6 +4,12 @@
     <groupId>CheckWordster</groupId>
     <artifactId>CheckWordster</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <repositories>
+        <repository>
+            <id>repo.bodar.com</id>
+            <url>http://repo.bodar.com</url>
+        </repository>
+    </repositories>
     <build>
         <sourceDirectory>src</sourceDirectory>
         <resources>
@@ -42,9 +48,7 @@
                     <dependency>
                         <groupId>com.googlecode.totallylazy</groupId>
                         <artifactId>totallylazy</artifactId>
-                        <version>991</version>
-                        <scope>system</scope>
-                        <systemPath>${project.basedir}/lib/totallylazy-991.jar</systemPath>
+                        <version>1.84</version>
                     </dependency>
                 </dependencies>
                 <executions>

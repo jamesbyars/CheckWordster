@@ -1,4 +1,4 @@
-package test.com.capitalone.checkwordster;
+package test.java.com.capitalone.checkwordster;
 
 import org.junit.runner.RunWith;
 
@@ -12,8 +12,8 @@ import cucumber.api.CucumberOptions;
 //      strict = true,
 //      tags     = "",
         monochrome = false,
-        features = { "src/test/com/capitalone/checkwordster/resources/features" },
-        glue     = { "test.com.capitalone.checkwordster" },
+        features = { "src/test/java/com/capitalone/checkwordster/resources/features" },
+        glue     = { "test.java.com.capitalone.checkwordster" },
         plugin   = { "pretty", "html:reports/cucumber-html-report", "json:reports/cucumber-json-report.json" }
 )
 

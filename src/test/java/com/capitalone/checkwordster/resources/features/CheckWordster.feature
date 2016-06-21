@@ -8,6 +8,9 @@ Feature: CheckWordster
 
   Scenario Outline: Convert numbers into words when all goes well
     Given I am doing "no" server testing of the CheckWordster microservice core logic
+#    Given I am doing "fake" server testing of the CheckWordster microservice core logic
+#    Given I am doing "local" server testing of the CheckWordster microservice core logic
+#    Given I am doing "AWS" server testing of the CheckWordster microservice core logic
     When I convert "<number>" into words
     Then it should be "<words>"
 

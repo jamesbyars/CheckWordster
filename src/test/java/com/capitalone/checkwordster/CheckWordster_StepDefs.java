@@ -1,4 +1,4 @@
-package test.com.capitalone.checkwordster;
+package test.java.com.capitalone.checkwordster;
 
 import com.capitalone.checkwordster.CheckWordster;
 import com.capitalone.checkwordster.CheckWordsterException;
