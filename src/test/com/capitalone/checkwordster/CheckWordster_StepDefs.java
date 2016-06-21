@@ -1,6 +1,7 @@
 package test.com.capitalone.checkwordster;
 
 import com.capitalone.checkwordster.CheckWordster;
+import com.capitalone.checkwordster.CheckWordsterException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -24,11 +25,17 @@ public class CheckWordster_StepDefs {
 
     @Then("^it should be \"([^\"]*)\"$")
     public void it_should_be(String numberInWords) throws Throwable {
-        assertThat(numberInWords, is(checkWordster.getWords()));
+        assertThat(checkWordster.getWords(), is(numberInWords));
     }
 
-    @Then("^an exception \"([^\"]*)\" should be thrown$")
-    public void an_exception_should_be_thrown(String arg1) throws Throwable {
+    @When("^I convert \"([^\"]*)\" into words, an exception \"([^\"]*)\" should be thrown$")
+    public void i_convert_into_words_an_exception_should_be_thrown(String stringToConvert, String exceptedExceptionMessage) {
+        try {
+            checkWordster = new CheckWordster(stringToConvert);
+            assertThat("Supposed to throw a \"" + exceptedExceptionMessage + "\" exception", true, is(false));
+        } catch (CheckWordsterException e) {
+            assertThat(e.getMessage(), is(exceptedExceptionMessage));
+        }
     }
 
 
