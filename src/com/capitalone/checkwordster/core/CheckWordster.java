@@ -1,4 +1,4 @@
-package com.capitalone.checkwordster;
+package com.capitalone.checkwordster.core;
 
 public class CheckWordster {
 
