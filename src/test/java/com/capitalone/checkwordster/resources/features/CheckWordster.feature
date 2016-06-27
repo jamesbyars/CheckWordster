@@ -7,7 +7,7 @@ Feature: CheckWordster
   Our product gives checks that old time feeling, with amounts in both numbers and words.
 
   Scenario: Start server
-    Given I start the "local" server
+    Given I start the "fake" server
 #  "no", "fake", "local" and "AWS"
 
 
@@ -68,6 +68,7 @@ Feature: CheckWordster
       |5500000000000|Five trillion five hundred billion                                                                                                    |
       |5550000000000|Five trillion five hundred fifty billion                                                                                              |
       |5555000000000|Five trillion five hundred fifty five billion                                                                                         |
+      |5555500000000|Five trillion five hundred fifty five billion five hundred million                                                                                         |
       |5555550000000|Five trillion five hundred fifty five billion five hundred fifty million                                                              |
       |5555555000000|Five trillion five hundred fifty five billion five hundred fifty five million                                                         |
       |5555555500000|Five trillion five hundred fifty five billion five hundred fifty five million five hundred thousand                                   |
