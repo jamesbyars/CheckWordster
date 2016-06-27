@@ -1,5 +1,6 @@
 package test.java.com.capitalone.checkwordster.client;
 
+import com.capitalone.checkwordster.server.CheckWordsterServer;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.FileSource;
 import com.github.tomakehurst.wiremock.common.SingleRootFileSource;
@@ -17,18 +18,22 @@ import static us.monoid.web.Resty.content;
 
 public class CheckWordsterClient {
     private String numberInWords;
+    private String whichServer;
+    private static WireMockServer wireMockServer;
+    private static Process serverRuntime;
+    private static CheckWordsterServer checkWordsterServer;
+    private static Thread serverThread;
 
-    public CheckWordsterClient(String numberInDigits, String whichServer) throws Exception {
-        Resty resty;
+    public CheckWordsterClient(String whichServer) throws Exception {
+        this.whichServer = whichServer;
+    }
 
-        resty = new Resty();
-
-        WireMockServer wireMockServer = null;
-
-        URL url = null;
-        URI uri;
+    public void startServer() throws Exception {
         if (whichServer.equals("local")) {
-            url = new URL("http://localhost:9090/checkWordster");
+            String[] execStrings = {"/usr/bin/java", "-jar", "/Users/howarddeiner/IdeaProjects/CheckWordster/out/artifacts/CheckWordster_jar/CheckWordster.jar"};
+            String [] execEnv = {"/Users/howarddeiner/IdeaProjects/CheckWordster"};
+            serverRuntime = Runtime.getRuntime().exec(execStrings,execEnv);
+            Thread.sleep(1000);
         } else if (whichServer.equals("fake")) {
             FileSource fileSource=new SingleRootFileSource("./wiremock");
 //            FileSource filesFileSource=fileSource.child("__files");
@@ -40,9 +45,29 @@ public class CheckWordsterClient {
             wireMockServer.loadMappingsUsing(new JsonFileMappingsLoader(mappingsFileSource));
 
             wireMockServer.start();
-
-            url = new URL("http://localhost:8080/checkWordster");
         }
+    }
+
+    public Process getServerRunTime() {
+        return serverRuntime;
+    }
+
+    public void stopServer() throws InterruptedException {
+        if (whichServer.equals("local")) serverRuntime.destroyForcibly();
+//        if (whichServer.equals("local")) {
+//            serverThread.join();
+//        }
+        if (whichServer.equals("fake")) wireMockServer.stop();
+    }
+
+    public String getWords(String numberInDigits) throws Exception {
+        Resty resty  = new Resty();
+
+        URL url = null;
+        URI uri;
+
+        if (whichServer.equals("local")) url = new URL("http://localhost:9090/checkWordster");
+        if (whichServer.equals("fake")) url = new URL("http://localhost:8080/checkWordster");
 
         uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
         String requestToPost = "{\"numberInDigits\": \"" + numberInDigits + "\"}";
@@ -50,12 +75,6 @@ public class CheckWordsterClient {
         JSONResource response = resty.json(uri,content(new JSONObject(requestToPost)));
         numberInWords = (String) response.get("numberInWords");
 
-        if (whichServer.equals("fake")) {
-            wireMockServer.stop();
-        }
-    }
-
-    public String getWords() throws Exception {
         return numberInWords;
     }
 

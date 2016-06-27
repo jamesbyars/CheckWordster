@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import static spark.Spark.port;
 import static spark.Spark.post;
+import static spark.Spark.stop;
 
 
 public class CheckWordsterServer {
@@ -13,6 +14,7 @@ public class CheckWordsterServer {
 
         port(9090);
         post("/checkWordster", (request, response) -> {
+            if (request.body().equals("STOP")) stop();
             JSONObject obj = new JSONObject(request.body());
             String numberInDigits = obj.getString("numberInDigits");
             response.type("text/json");
