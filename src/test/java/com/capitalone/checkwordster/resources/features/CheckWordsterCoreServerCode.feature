@@ -1,4 +1,5 @@
-Feature: CheckWordster
+Feature: CheckWordsterCore
+
   For the hipster bank customer
   Who is unhappy with traditional bank check issuing services, because the checks written don’t have that retro feel,
   The CheckWordster is a microservice of a bank check writing service
@@ -7,9 +8,7 @@ Feature: CheckWordster
   Our product gives checks that old time feeling, with amounts in both numbers and words.
 
   Scenario: Start server
-    Given I start the "fake" server
-#  "no", "fake", "local" and "AWS"
-
+    Given I start the "no" server
 
   Scenario Outline: Convert numbers into words when all goes well
     When I convert "<number>" into words

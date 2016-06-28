@@ -13,7 +13,15 @@ public class CheckWordster {
 
     public CheckWordster(String stringOfNumberAsDigits) throws CheckWordsterException {
         wordDigits = stringOfNumberAsDigits.trim();
+        checkInput();
+        removeCommas();
+    }
 
+    private void removeCommas() {
+        wordDigits = wordDigits.replaceAll(",","");
+    }
+
+    private void checkInput() throws CheckWordsterException {
         if (wordDigits.equals("")) throw new CheckWordsterException("Null number");
         if (!wordDigits.matches("[0-9\\+\\-\\.\\,]+")) throw new CheckWordsterException("Invalid characters");
         if (wordDigits.startsWith("+") || wordDigits.startsWith("-")) {
@@ -33,8 +41,6 @@ public class CheckWordster {
             }
         }
         if (wordDigits.length() > 15) throw new CheckWordsterException("Too many digits");
-
-        wordDigits = wordDigits.replaceAll(",","");
     }
 
     public String getWords() {
@@ -101,4 +107,3 @@ public class CheckWordster {
          return result.trim();
     }
 }
-
