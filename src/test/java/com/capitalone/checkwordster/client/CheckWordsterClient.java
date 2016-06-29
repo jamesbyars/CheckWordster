@@ -39,8 +39,8 @@ public class CheckWordsterClient {
             String [] execEnv;
 
             if (SystemUtils.IS_OS_WINDOWS) {
-                execStrings = new String[] {"C:\\Program Files\\Java\\jdk1.8.0_91\\bin\\java.exe", "-jar", ".\\out\\artifacts\\CheckWordster_jar\\CheckWordster.jar"};
-                execEnv = new String[] {"C:\\Users\\Howard Deiner\\IdeaProjects\\CheckWordster"};
+                execStrings = new String[] {"java", "-jar", ".\\out\\artifacts\\CheckWordster_jar\\CheckWordster.jar"};
+                execEnv = new String[] {".\\"};
             } else {
                 execStrings = new String[] {"/usr/bin/java", "-jar", "/Users/howarddeiner/IdeaProjects/CheckWordster/out/artifacts/CheckWordster_jar/CheckWordster.jar"};
                 execEnv = new String[] {"/Users/howarddeiner/IdeaProjects/CheckWordster"};
