@@ -10,6 +10,7 @@ import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import com.github.tomakehurst.wiremock.standalone.CommandLineOptions;
 import com.github.tomakehurst.wiremock.standalone.JsonFileMappingsLoader;
 import com.github.tomakehurst.wiremock.stubbing.StubMapping;
+import org.apache.commons.lang3.SystemUtils;
 import us.monoid.json.JSONObject;
 import us.monoid.web.JSONResource;
 import us.monoid.web.Resty;
@@ -34,8 +35,16 @@ public class CheckWordsterClient {
 
     public void startServer() throws Exception {
         if (whichServer.equals("local")) {
-            String[] execStrings = {"/usr/bin/java", "-jar", "/Users/howarddeiner/IdeaProjects/CheckWordster/out/artifacts/CheckWordster_jar/CheckWordster.jar"};
-            String [] execEnv = {"/Users/howarddeiner/IdeaProjects/CheckWordster"};
+            String[] execStrings;
+            String [] execEnv;
+
+            if (SystemUtils.IS_OS_WINDOWS) {
+                execStrings = new String[] {"C:\\Program Files\\Java\\jdk1.8.0_91\\bin\\java.exe", "-jar", ".\\out\\artifacts\\CheckWordster_jar\\CheckWordster.jar"};
+                execEnv = new String[] {"C:\\Users\\Howard Deiner\\IdeaProjects\\CheckWordster"};
+            } else {
+                execStrings = new String[] {"/usr/bin/java", "-jar", "/Users/howarddeiner/IdeaProjects/CheckWordster/out/artifacts/CheckWordster_jar/CheckWordster.jar"};
+                execEnv = new String[] {"/Users/howarddeiner/IdeaProjects/CheckWordster"};
+            }
             serverRuntime = Runtime.getRuntime().exec(execStrings,execEnv);
             Thread.sleep(1000);
         } else if (whichServer.equals("fake")) {
