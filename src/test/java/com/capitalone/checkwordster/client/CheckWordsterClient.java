@@ -2,11 +2,14 @@ package test.java.com.capitalone.checkwordster.client;
 
 import com.capitalone.checkwordster.server.CheckWordsterServer;
 import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.common.FileSource;
 import com.github.tomakehurst.wiremock.common.SingleRootFileSource;
 import com.github.tomakehurst.wiremock.core.Options;
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import com.github.tomakehurst.wiremock.standalone.CommandLineOptions;
 import com.github.tomakehurst.wiremock.standalone.JsonFileMappingsLoader;
+import com.github.tomakehurst.wiremock.stubbing.StubMapping;
 import us.monoid.json.JSONObject;
 import us.monoid.web.JSONResource;
 import us.monoid.web.Resty;
@@ -14,6 +17,7 @@ import us.monoid.web.Resty;
 import java.net.URI;
 import java.net.URL;
 
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static us.monoid.web.Resty.content;
 
 public class CheckWordsterClient {
@@ -35,14 +39,13 @@ public class CheckWordsterClient {
             serverRuntime = Runtime.getRuntime().exec(execStrings,execEnv);
             Thread.sleep(1000);
         } else if (whichServer.equals("fake")) {
-            FileSource fileSource=new SingleRootFileSource("./wiremock");
-//            FileSource filesFileSource=fileSource.child("__files");
-            FileSource mappingsFileSource=fileSource.child("mappings");
+            WireMockConfiguration wireMockConfiguration = new WireMockConfiguration();
+            wireMockConfiguration.port(9000);
+            wireMockConfiguration.browserProxyingEnabled();
+            wireMockConfiguration.fileSource(new SingleRootFileSource("./wiremock"));
 
-            CommandLineOptions options=new CommandLineOptions();
-
-            wireMockServer=new WireMockServer(Options.DEFAULT_PORT, fileSource, options.browserProxyingEnabled());
-            wireMockServer.loadMappingsUsing(new JsonFileMappingsLoader(mappingsFileSource));
+            wireMockServer=new WireMockServer(wireMockConfiguration);
+            wireMockServer.loadMappingsUsing(new JsonFileMappingsLoader(new SingleRootFileSource("./wiremock/mappings")));
 
             wireMockServer.start();
         }
@@ -53,11 +56,8 @@ public class CheckWordsterClient {
     }
 
     public void stopServer() throws InterruptedException {
-        if (whichServer.equals("local")) serverRuntime.destroyForcibly();
-//        if (whichServer.equals("local")) {
-//            serverThread.join();
-//        }
         if (whichServer.equals("fake")) wireMockServer.stop();
+        if (whichServer.equals("local")) serverRuntime.destroyForcibly();
     }
 
     public String getWords(String numberInDigits) throws Exception {
@@ -66,8 +66,8 @@ public class CheckWordsterClient {
         URL url = null;
         URI uri;
 
+        if (whichServer.equals("fake")) url = new URL("http://localhost:9000/checkWordster");
         if (whichServer.equals("local")) url = new URL("http://localhost:9090/checkWordster");
-        if (whichServer.equals("fake")) url = new URL("http://localhost:8080/checkWordster");
 
         uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
         String requestToPost = "{\"numberInDigits\": \"" + numberInDigits + "\"}";
