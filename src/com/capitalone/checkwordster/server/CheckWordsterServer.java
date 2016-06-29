@@ -18,7 +18,8 @@ public class CheckWordsterServer {
             JSONObject obj = new JSONObject(request.body());
             String numberInDigits = obj.getString("numberInDigits");
             response.type("text/json");
-            return "{\"numberInDigits\": " + "\"" + numberInDigits + "\", \"numberInWords\": \"" + new CheckWordster(numberInDigits).getWords() + "\"}";
+            return "{\"numberInDigits\": " + "\"" + numberInDigits + "\", " +
+                    "\"numberInWords\": \"" + new CheckWordster(numberInDigits).getWords() + "\"}";
         });
     }
 }

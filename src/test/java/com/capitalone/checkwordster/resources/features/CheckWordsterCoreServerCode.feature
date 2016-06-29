@@ -23,7 +23,7 @@ Feature: CheckWordsterCore
       |770          |Seven hundred seventy                                                                                                                 |
       |900          |Nine hundred                                                                                                                          |
       |1000         |One thousand                                                                                                                          |
-      |1,000        |One thousand                                                                                                                          |
+      |1,000        |One thousand|
       |1954         |One thousand nine hundred fifty four                                                                                                  |
       |19542        |Nineteen thousand five hundred fourty two                                                                                             |
       |319542       |Three hundred nineteen thousand five hundred fourty two                                                                               |
