@@ -59,7 +59,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <projectName>textanalysis-text-summarization-cucumber-resty-wiremock-post-with-authentication</projectName>
+                            <projectName>CheckWordster</projectName>
                             <outputDirectory>${project.basedir}/reports/cucumber-pretty-report</outputDirectory>
                             <cucumberOutput>${project.basedir}/reports/cucumber-json-report.json</cucumberOutput>
                             <enableFlashCharts>true</enableFlashCharts>
