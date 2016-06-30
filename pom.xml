@@ -10,6 +10,9 @@
             <url>http://repo.bodar.com</url>
         </repository>
     </repositories>
+    <prerequisites>
+        <maven>3.0</maven>
+    </prerequisites>
     <build>
         <sourceDirectory>src</sourceDirectory>
         <resources>
@@ -22,28 +25,45 @@
         </resources>
         <plugins>
             <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
+            <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
+                <version>3.5.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.1</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.5.1</version>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.18.1</version>
+                <version>2.19.1</version>
                 <configuration>
                     <testFailureIgnore>true</testFailureIgnore>
                     <includes>
-                        <exclude>**/*RunTests.java</exclude>
+                        <include>**/UnitTestsCheckWordster.java</include>
+                        <include>**/RunTests.java</include>
                     </includes>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>net.masterthought</groupId>
                 <artifactId>maven-cucumber-reporting</artifactId>
-                <version>0.0.5</version>
+                <version>2.4.0</version>
                 <dependencies>
                     <dependency>
                         <groupId>com.googlecode.totallylazy</groupId>
@@ -70,6 +90,26 @@
             </plugin>
         </plugins>
     </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <outputDirectory>${project.basedir}/reports/junitreport</outputDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <outputDirectory>${project.basedir}/reports/junitreport</outputDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
     <dependencies>
         <dependency>
             <groupId>org.apache.commons</groupId>

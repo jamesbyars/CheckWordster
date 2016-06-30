@@ -76,7 +76,7 @@ public class CheckWordster {
         return wordsOut.substring(0,1).trim().toUpperCase() + wordsOut.substring(1, wordsOut.length()).trim() + decimalsOut;
     }
 
-    private String wordsForUpTo1000(String digits3) {
+     public String wordsForUpTo1000(String digits3) {
         String result = "";
         int[] digits = new int[3];
 
