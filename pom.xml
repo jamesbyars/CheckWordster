@@ -152,7 +152,7 @@
                 <artifactId>maven-surefire-report-plugin</artifactId>
                 <version>2.19.1</version>
                 <configuration>
-                    <reportsDirectory>${project.basedir}/reports/junitreport</reportsDirectory>
+                    <outputName>junitreport</outputName>
                 </configuration>
             </plugin>
             <plugin>
