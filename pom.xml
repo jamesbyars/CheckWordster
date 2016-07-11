@@ -27,6 +27,17 @@
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>3.0.0</version>
+                <configuration>
+                    <filesets>
+                    <fileset>
+                        <directory>reports</directory>
+                        <excludes>
+                            <include>*.*</include>
+                        </excludes>
+                        <followSymlinks>false</followSymlinks>
+                    </fileset>
+                </filesets>
+            </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -37,8 +48,51 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.5.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.directory}/dependency-jars/
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>com.capitalone.checkwordster.server.CheckWordsterServer</mainClass>
+                            <classpathPrefix>dependency-jars</classpathPrefix>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>server</classifier>
+                            <excludes>
+                                <include>com.capitalone.checkwordster.*</include>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -69,12 +123,14 @@
                         <groupId>com.googlecode.totallylazy</groupId>
                         <artifactId>totallylazy</artifactId>
                         <version>1.84</version>
+                        <scope>system</scope>
+                        <systemPath>${project.basedir}/target/dependency-jars/totallylazy-1.84.jar</systemPath>
                     </dependency>
                 </dependencies>
                 <executions>
                     <execution>
                         <id>execution</id>
-                        <phase>verify</phase>
+                        <phase>test</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
@@ -82,7 +138,6 @@
                             <projectName>CheckWordster</projectName>
                             <outputDirectory>${project.basedir}/reports/cucumber-pretty-report</outputDirectory>
                             <cucumberOutput>${project.basedir}/reports/cucumber-json-report.json</cucumberOutput>
-                            <enableFlashCharts>true</enableFlashCharts>
                             <skippedFails>false</skippedFails>
                         </configuration>
                     </execution>
@@ -97,7 +152,7 @@
                 <artifactId>maven-surefire-report-plugin</artifactId>
                 <version>2.19.1</version>
                 <configuration>
-                    <outputDirectory>${project.basedir}/reports/junitreport</outputDirectory>
+                    <reportsDirectory>${project.basedir}/reports/junitreport</reportsDirectory>
                 </configuration>
             </plugin>
             <plugin>
@@ -214,6 +269,11 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.totallylazy</groupId>
+            <artifactId>totallylazy</artifactId>
+            <version>1.84</version>
         </dependency>
     </dependencies>
 </project>

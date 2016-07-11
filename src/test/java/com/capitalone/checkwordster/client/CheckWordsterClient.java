@@ -2,14 +2,9 @@ package test.java.com.capitalone.checkwordster.client;
 
 import com.capitalone.checkwordster.server.CheckWordsterServer;
 import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.client.WireMock;
-import com.github.tomakehurst.wiremock.common.FileSource;
 import com.github.tomakehurst.wiremock.common.SingleRootFileSource;
-import com.github.tomakehurst.wiremock.core.Options;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import com.github.tomakehurst.wiremock.standalone.CommandLineOptions;
 import com.github.tomakehurst.wiremock.standalone.JsonFileMappingsLoader;
-import com.github.tomakehurst.wiremock.stubbing.StubMapping;
 import org.apache.commons.lang3.SystemUtils;
 import us.monoid.json.JSONObject;
 import us.monoid.web.JSONResource;
@@ -18,7 +13,6 @@ import us.monoid.web.Resty;
 import java.net.URI;
 import java.net.URL;
 
-import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static us.monoid.web.Resty.content;
 
 public class CheckWordsterClient {
@@ -39,11 +33,11 @@ public class CheckWordsterClient {
             String [] execEnv;
 
             if (SystemUtils.IS_OS_WINDOWS) {
-                execStrings = new String[] {"java", "-jar", ".\\out\\artifacts\\CheckWordster_jar\\CheckWordster.jar"};
+                execStrings = new String[] {"java", "-jar", ".\\target\\CheckWordster-0.0.1-SNAPSHOT-server.jar"};
                 execEnv = new String[] {".\\"};
             } else {
-                execStrings = new String[] {"/usr/bin/java", "-jar", "/Users/howarddeiner/IdeaProjects/CheckWordster/out/artifacts/CheckWordster_jar/CheckWordster.jar"};
-                execEnv = new String[] {"/Users/howarddeiner/IdeaProjects/CheckWordster"};
+                execStrings = new String[] {"/usr/bin/java", "-jar", "./target/CheckWordster-0.0.1-SNAPSHOT-server.jar"};
+                execEnv = new String[] {"."};
             }
             serverRuntime = Runtime.getRuntime().exec(execStrings,execEnv);
             Thread.sleep(1000);

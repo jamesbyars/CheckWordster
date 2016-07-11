@@ -78,5 +78,6 @@
     <orderEntry type="library" name="Maven: org.jsoup:jsoup:1.8.3" level="project" />
     <orderEntry type="library" name="Maven: com.github.tomakehurst:wiremock:standalone:1.57" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-simple:1.6.2" level="project" />
+    <orderEntry type="library" name="Maven: com.googlecode.totallylazy:totallylazy:1.84" level="project" />
   </component>
 </module>
