@@ -14,7 +14,7 @@ import cucumber.api.CucumberOptions;
         monochrome = false,
         features = { "src/test/java/com/capitalone/checkwordster/resources/features" },
         glue     = { "test.java.com.capitalone.checkwordster" },
-        plugin   = { "pretty", "html:reports/cucumber-html-report", "json:reports/cucumber-json-report.json" }
+        plugin   = { "pretty", "html:target/cucumber-reports/cucumber-html-report", "json:target/cucumber-reports/cucumber-json-report.json" }
 )
 
 public class RunTests {

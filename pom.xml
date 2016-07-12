@@ -27,17 +27,6 @@
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>3.0.0</version>
-                <configuration>
-                    <filesets>
-                    <fileset>
-                        <directory>reports</directory>
-                        <excludes>
-                            <include>*.*</include>
-                        </excludes>
-                        <followSymlinks>false</followSymlinks>
-                    </fileset>
-                </filesets>
-            </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -136,8 +125,8 @@
                         </goals>
                         <configuration>
                             <projectName>CheckWordster</projectName>
-                            <outputDirectory>${project.basedir}/reports/cucumber-pretty-report</outputDirectory>
-                            <cucumberOutput>${project.basedir}/reports/cucumber-json-report.json</cucumberOutput>
+                            <outputDirectory>${project.basedir}/target/cucumber-reports/cucumber-pretty-report</outputDirectory>
+                            <cucumberOutput>${project.basedir}/target/cucumber-reports/cucumber-json-report.json</cucumberOutput>
                             <skippedFails>false</skippedFails>
                         </configuration>
                     </execution>
