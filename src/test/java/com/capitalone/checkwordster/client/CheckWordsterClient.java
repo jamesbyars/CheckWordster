@@ -29,17 +29,14 @@ public class CheckWordsterClient {
 
     public void startServer() throws Exception {
         if (whichServer.equals("local")) {
-            String[] execStrings;
-            String [] execEnv;
+            String execString;
 
             if (SystemUtils.IS_OS_WINDOWS) {
-                execStrings = new String[] {"java", "-jar", ".\\target\\CheckWordster-0.0.1-SNAPSHOT-server.jar"};
-                execEnv = new String[] {".\\"};
+                execString = "java -jar .\\target\\CheckWordster-0.0.1-SNAPSHOT-server.jar";
             } else {
-                execStrings = new String[] {"/usr/bin/java", "-jar", "./target/CheckWordster-0.0.1-SNAPSHOT-server.jar"};
-                execEnv = new String[] {"."};
+                execString = "java -jar ./target/CheckWordster-0.0.1-SNAPSHOT-server.jar";
             }
-            serverRuntime = Runtime.getRuntime().exec(execStrings,execEnv);
+            serverRuntime = Runtime.getRuntime().exec(execString);
             Thread.sleep(1000);
         } else if (whichServer.equals("fake")) {
             WireMockConfiguration wireMockConfiguration = new WireMockConfiguration();
