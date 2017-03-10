@@ -1,9 +1,8 @@
 AWSTemplateFormatVersion: "2010-09-09"
-  Description: "Simple, single EC2 Instance template"
-  Resources:
-    EC2Instance:
-      Type: AWS::EC2::Instance
-      Properties:
-        ImageId: ami-7ea24a17
-
-        AvailabilityZone: "us-east-1"
+Description: "Simple, single EC2 Instance template"
+Resources:
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0b33d91d
+      InstanceType: t2.micro
