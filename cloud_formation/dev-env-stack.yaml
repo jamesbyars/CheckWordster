@@ -1,0 +1,94 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: EC2 and RDS Instance
+Resources:
+  DBEC2SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Open database for access
+      VpcId: vpc-26e7a940
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: '3306'
+        ToPort: '3306'
+        SourceSecurityGroupId:
+          Ref: WebServerSecurityGroup
+  WebServerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow http to client host
+      VpcId: vpc-26e7a940
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: '80'
+        ToPort: '80'
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: '22'
+        ToPort: '22'
+        CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+      - IpProtocol: tcp
+        FromPort: '80'
+        ToPort: '80'
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: '3306'
+        ToPort: '3306'
+        CidrIp: 0.0.0.0/0
+  DevEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0b33d91d
+      InstanceType: t2.micro
+      KeyName:
+        Ref: InstanceKeyPairParameter
+      SecurityGroupIds:
+        - !GetAtt WebServerSecurityGroup.GroupId
+      Tags:
+        - Key: Name
+          Value: Dev Instance
+  DevDB:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBName: DevDB
+      VPCSecurityGroups:
+          - !GetAtt DBEC2SecurityGroup.GroupId
+      AllocatedStorage:
+        Ref: DBAllocatedStorageParameter
+      DBInstanceClass:
+        Ref: DBInstanceClassParameter
+      Engine: MySQL
+      EngineVersion: 5.5
+      MasterUsername:
+        Ref: DBUserNameParameter
+      MasterUserPassword:
+        Ref: DBPasswordParameter
+      Tags:
+        - Key: Name
+          Value: Dev MySQL Database
+Parameters:
+  DBInstanceClassParameter:
+    Type: String
+    Default: db.t2.micro
+    AllowedValues:
+      - db.t2.micro
+      - db.t2.small
+      - db.t2.medium
+      - db.t2.large
+    Description: Parameter for db instance type
+  DBUserNameParameter:
+    Type: String
+    Default: user
+    Description: DB master username
+  DBPasswordParameter:
+    Type: String
+    Default: password
+    Description: DB master user password
+  DBAllocatedStorageParameter:
+    Type: String
+    Default: 5
+    Description: DB allocated storage
+  InstanceKeyPairParameter:
+    Type: String
+    Default: jbyars
+    Description: KeyPair to use for access to EC2 Instance
