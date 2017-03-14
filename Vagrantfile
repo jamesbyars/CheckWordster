@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "centos/7"
+  # config.vm.box = "boxcutter/centos72"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -69,13 +69,19 @@ Vagrant.configure("2") do |config|
   #   apt-get install -y apache2
   # SHELL
 
+
+
+  ## My actual configuration
+
+  config.vm.box = "boxcutter/centos72"
+
   config.vm.provision "shell", inline: <<-SHELL
      sudo yum update -y
-     sudo yum install -y java-1.8.0-openjdk
-     curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
-     sudo python get-pip.py
-     sudo pip install --upgrade --user awscli
-     #sudo export PATH=~/.local/bin:$PATH
+     sudo yum install -y epel-release
+     sudo yum install -y python-pip
+     sudo pip install --upgrade pip
+     sudo pip install awscli
+     #sudo yum install -y java-1.8.0-openjdk
   SHELL
 
 end
