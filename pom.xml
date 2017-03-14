@@ -63,7 +63,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.capitalone.checkwordster.server.CheckWordsterServer</mainClass>
+                            <mainClass>com.tech.checkwordster.server.CheckWordsterServer</mainClass>
                             <classpathPrefix>dependency-jars</classpathPrefix>
                         </manifest>
                     </archive>
@@ -77,7 +77,7 @@
                         <configuration>
                             <classifier>server</classifier>
                             <excludes>
-                                <include>com.capitalone.checkwordster.*</include>
+                                <include>com.tech.checkwordster.*</include>
                             </excludes>
                         </configuration>
                     </execution>

@@ -78,10 +78,9 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
      sudo yum update -y
      sudo yum install -y epel-release
-     sudo yum install -y python-pip
+     sudo yum install -y python-pip java-1.8.0-openjdk
      sudo pip install --upgrade pip
      sudo pip install awscli
-     #sudo yum install -y java-1.8.0-openjdk
   SHELL
 
 end
