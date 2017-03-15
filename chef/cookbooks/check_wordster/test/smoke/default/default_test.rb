@@ -20,6 +20,7 @@
 #   it { should be_enabled }
 #   it { should be_running }
 # end
+
 describe command 'sestatus | grep "Current mode:"' do
   its('stdout') { should match /permissive/ }
 end
