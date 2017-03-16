@@ -8,3 +8,4 @@
 .vagrant/machines/default/virtualbox/synced_folders
 target
 chef/.kitchen/logs
+chef/cookbooks/.kitchen/logs
