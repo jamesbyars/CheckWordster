@@ -5,6 +5,7 @@
 # The Inspec reference, with examples and extensive documentation, can be
 # found at http://inspec.io/docs/reference/resources/
 
-describe command 'sestatus | grep "Current mode:"' do
-  its('stdout') { should match /permissive/ }
+describe command 'sudo netstat -anp | grep 3306' do
+  its('stdout') { should match /LISTEN/}
+  its('stdout') { should match /mysqld/}
 end
