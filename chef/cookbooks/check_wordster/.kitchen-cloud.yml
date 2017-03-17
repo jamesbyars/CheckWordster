@@ -1,0 +1,34 @@
+---
+driver:
+  name: ec2
+  aws_ssh_key_id: jbyars
+  region: us-east-1
+  instance_type: t2.micro
+  associate_public_ip: true
+  interface: dns
+  security_group_ids: ["sg-9827f9e7"]
+  shared_credentials_profile: siq
+
+transport:
+  ssh_key: ~/Development/CheckWordster/jbyars.pem
+  connection_timeout: 10
+  connection_retries: 5
+  username: ubuntu
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: ubuntu-16.04
+    driver:
+      image_id: ami-f4cc1de2
+
+suites:
+  - name: default
+    run_list:
+      - recipe[check_wordster::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/default
+    attributes:
+

@@ -6,6 +6,6 @@
 # found at http://inspec.io/docs/reference/resources/
 
 describe service "mysql-default" do
-  it { should be_enabled}
-  it { should be_running}
+ it { should be_enabled}
+ it { should be_running}
 end
