@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="1" author="howarddeiner">
+        <createTable tableName="customer">
+            <column name="timestamp" type="timestamp"/>
+            <column name="digits" type="varchar(64)"/>
+            <column name="words" type="varchar(64)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="howarddeiner">
+        <renameTable oldTableName="customer" newTableName="service_log" />
+    </changeSet>
+
+</databaseChangeLog>
