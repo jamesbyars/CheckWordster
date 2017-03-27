@@ -28,7 +28,7 @@ To enable SSH access to your Amazon EC2 instances you need to create a key pair.
 Amazon will install the public key of that key pair on every EC2 instance.
 knife will use the private key of that key pair to connect to your Amazon EC2 instances.
 
-Under Network & Security in AWS Management Console, select Key Pairs. Create a Key Pair.
+Under Network and Security in AWS Management Console, select Key Pairs. Create a Key Pair.
 Give it a name like "knife" so you know that this key pair will be used by knife.
 Download the private key to your local workstation.  Store the downloaded private
 key knife.pem in ~/.ssh/knife.pem

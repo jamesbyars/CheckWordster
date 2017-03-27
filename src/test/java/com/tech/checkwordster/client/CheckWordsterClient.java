@@ -37,7 +37,7 @@ public class CheckWordsterClient {
                 execString = "java -jar ./target/CheckWordster-0.0.1-SNAPSHOT-server.jar";
             }
             serverRuntime = Runtime.getRuntime().exec(execString);
-            Thread.sleep(1000);
+            Thread.sleep(10000);
         } else if (whichServer.equals("fake")) {
             WireMockConfiguration wireMockConfiguration = new WireMockConfiguration();
             wireMockConfiguration.port(9000);
